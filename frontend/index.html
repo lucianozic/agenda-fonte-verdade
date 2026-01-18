@@ -3,24 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <title>Login - Agenda</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      padding: 40px;
+    }
+    input, button {
+      padding: 6px;
+      margin: 5px 0;
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
 <h2>Login</h2>
 
-<input id="user" placeholder="Usuário">
-<br><br>
-
-<input id="pass" type="password" placeholder="Senha">
-<br><br>
-
+<input type="text" id="user" placeholder="Usuário">
+<input type="password" id="pass" placeholder="Senha">
 <button onclick="login()">Entrar</button>
 
 <p id="msg"></p>
 
 <script>
+  // 🔴 AJUSTE CRÍTICO PARA GITHUB PAGES
   const BASE_URL = "/agenda-fonte-verdade/frontend/";
 
-  // SE JÁ ESTIVER LOGADO, VAI DIRETO PARA ADMIN
-  const loggedUser = localStorage.getItem("user");
-  if (loggedUser) {
+  // Usuários (fonte da verdade simples)
+  const users = [
+    { user: "admin", pass: "1234" }
+  ];
+
+  function login() {
+    const u = document.getElementById("user").value;
+    const p = document.getElementById("pass").value;
+
+    const valid = users.find(x => x.user === u && x.pass === p);
+
+    if (valid) {
+      localStorage.setItem("user", JSON.stringify(valid));
+
+      // ✅ REDIRECIONAMENTO CORRETO
+      window.location.href = BASE_URL + "admin.html";
+    } else {
+      document.getElementById("msg").innerText = "Usuário ou senha inválidos";
+    }
+  }
+</script>
+
+</body>
+</html>
