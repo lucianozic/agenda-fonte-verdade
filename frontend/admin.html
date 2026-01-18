@@ -2,38 +2,86 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Área Restrita</title>
+  <title>Admin - Agenda Fonte da Verdade</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 5px;
+      margin: 5px 0;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Área Administrativa</h1>
-<p id="userInfo"></p>
-
-<button onclick="logout()">Sair</button>
+<div class="top">
+  <h2>Painel Administrativo</h2>
+  <button onclick="logout()">Sair</button>
+</div>
 
 <hr>
 
-<p>Conteúdo restrito liberado ✔</p>
+<p><strong>Usuário logado:</strong> <span id="userName"></span></p>
+
+<h3>Editar Datas / Conteúdo</h3>
+
+<label>Data:</label><br>
+<input type="date" id="date"><br><br>
+
+<label>Descrição:</label><br>
+<input type="text" id="desc" placeholder="Descrição"><br><br>
+
+<button onclick="salvar()">Salvar</button>
+
+<p id="msg"></p>
 
 <script>
-  // VERIFICA LOGIN
+  const BASE_URL = "/agenda-fonte-verdade/frontend/";
+
+  // 🔒 PROTEÇÃO: SE NÃO ESTIVER LOGADO, VOLTA PARA LOGIN
   const user = localStorage.getItem("user");
 
   if (!user) {
-    // Se não estiver logado, volta para login
-    window.location.href = "index.html";
+    window.location.href = BASE_URL + "index.html";
   } else {
-    const data = JSON.parse(user);
-    document.getElementById("userInfo").innerText =
-      "Usuário logado: " + data.username + " (" + data.role + ")";
+    const u = JSON.parse(user);
+    document.getElementById("userName").innerText = u.user;
   }
 
   function logout() {
     localStorage.removeItem("user");
-    window.location.href = "index.html";
+    window.location.href = BASE_URL + "index.html";
+  }
+
+  function salvar() {
+    const date = document.getElementById("date").value;
+    const desc = document.getElementById("desc").value;
+
+    if (!date || !desc) {
+      document.getElementById("msg").innerText = "Preencha todos os campos";
+      return;
+    }
+
+    // Simulação de salvamento
+    document.getElementById("msg").innerText =
+      "Salvo com sucesso: " + date + " - " + desc;
   }
 </script>
 
 </body>
 </html>
-
