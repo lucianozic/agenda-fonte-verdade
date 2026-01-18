@@ -10,6 +10,7 @@
 
 <input id="user" placeholder="Usuário">
 <br><br>
+
 <input id="pass" type="password" placeholder="Senha">
 <br><br>
 
@@ -17,6 +18,9 @@
 
 <p id="msg"></p>
 
-<script src="js/auth.js"></script>
-</body>
-</html>
+<script>
+  const BASE_URL = "/agenda-fonte-verdade/frontend/";
+
+  // SE JÁ ESTIVER LOGADO, VAI DIRETO PARA ADMIN
+  const loggedUser = localStorage.getItem("user");
+  if (loggedUser) {
