@@ -1,4 +1,4 @@
-const USERS_URL = "https://raw.githubusercontent.com/SEU_USUARIO/agenda-fonte-verdade/main/auth/users.json";
+const USERS_URL = "https://raw.githubusercontent.com/lucianozic/agenda-fonte-verdade/main/auth/users.json";
 
 async function login() {
   const username = document.getElementById("user").value;
