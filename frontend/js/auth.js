@@ -1,25 +1,26 @@
-const USERS_URL = "https://raw.githubusercontent.com/lucianozic/agenda-fonte-verdade/main/auth/users.json";
+const USERS_URL =
+  "https://raw.githubusercontent.com/lucianozic/agenda-fonte-verdade/main/auth/users.json";
 
 async function login() {
-  const username = document.getElementById("user").value;
-  const password = document.getElementById("pass").value;
+  const user = document.getElementById("user").value;
+  const pass = document.getElementById("pass").value;
   const msg = document.getElementById("msg");
 
   try {
-    const res = await fetch(USERS_URL);
-    const data = await res.json();
+    const response = await fetch(USERS_URL);
+    const data = await response.json();
 
-    const user = data.users.find(
-      u => u.username === username && u.password === password
+    const found = data.users.find(
+      u => u.username === user && u.password === pass
     );
 
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-      msg.innerText = "Login realizado com sucesso";
+    if (found) {
+      localStorage.setItem("user", JSON.stringify(found));
+      msg.innerText = "Login realizado com sucesso!";
     } else {
       msg.innerText = "Usuário ou senha inválidos";
     }
   } catch (e) {
-    msg.innerText = "Erro ao acessar fonte de dados";
+    msg.innerText = "Erro ao acessar o GitHub";
   }
 }
